@@ -5,7 +5,6 @@ B = [[4, 6], [2, 7]]
 
 
 def matrixmult(A, B):
-
     '''
     :param A: 2D nested list; the matrix that is the multiplier
     :param B: 2D nested list; the matrix that is the multiplicand
@@ -18,7 +17,8 @@ def matrixmult(A, B):
     '''
 
     if len(A[0]) != len(B):
-        raise ValueError("Cannot multiply the two matrices A and B. Number of columns in A is not equal to the number of rows in B")
+        raise ValueError(
+            "Cannot multiply the two matrices A and B. Number of columns in A is not equal to the number of rows in B")
     for i in A:
         if len(i) != len(A[0]):
             raise ValueError("Matrix A is invalid, number of columns in a row is not consistent")
@@ -37,12 +37,8 @@ def matrixmult(A, B):
         product_matrix.append(row_element)
     return product_matrix
 
-x = math.pi / 2
-A = [[math.cos(x), -math.sin(x)], [math.sin(x), math.cos(x)]]
-B = [[1], [0, 0]]
-try:
-    C = matrixmult(A, B)
-except ValueError as inst:
-    print("Caught ValueError")
-    print("You have thrown the right type of error")
 
+A = [[4, 9, 3, 5], [6, 7, 3, 3], [2, 5, 4, 3]]
+B = [[5, 2, 0], [6, 1, 4], [5, 5, 4], [7, 7, 2]]
+
+print(matrixmult(A, B))

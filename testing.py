@@ -1,20 +1,24 @@
-days= { 'Mon', 'Tue', 'Wed','Thu'}
-enum_days = enumerate(days)
-# print(list(enum_days))
-# print(type(enum_days))
-# print(list(enum_days))
-# converting it to alist
-# print(list(enum_days))
-#
-# changing the default counter to 5
-# enum_days = enumerate(days, 5)
-# print(list(enum_days))
+import matplotlib.pyplot as plt, matplotlib.colors as mccolours
+import numpy as np
+import seaborn
 
-# for enum_days in enumerate(days):
-#     print(enum_days.index(2))
+linestyles = ["-", "--", "-.", ":"]
 
-mylist = [1,2,3,4]
-# for i in range(0, len(mylist)):
-#     print("Next number is: {}".format(mylist[i-1]))
-for x in enumerate(days):
-    print(x.index())
+# x = np.linspace(-10, 10, 100)
+# for i, ls in enumerate(linestyles):
+#     y = 3.5 - 2.3 * (x + i) + 0.5 * (x + i) ** 2
+#     matplotlib.pyplot.plot(x, y, linestyle=ls, label=ls)
+    
+
+# plot the data
+# matplotlib.pyplot.legend()
+# matplotlib.pyplot.show()
+
+cp = seaborn.color_palette('colorblind', 6)
+for i in range(6):
+    c = "C{}".format(i)
+    plt.axvline(i, color=c, label=c)
+
+plt.xlim([-1, 6])
+plt.legend(loc="upper right")
+plt.show()

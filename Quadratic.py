@@ -77,7 +77,8 @@ class Quadratic:
             rootValues = (-self.b + discriminant ** 0.5) / (2 * self.a)
         else:
             rootValues = None
-
+        print("TEST: root_number {0} and discriminant {1}".format(root_number, discriminant))
+        print("###TEST root values result: {0} ####".format(rootValues))
         return rootValues
 
     @staticmethod
@@ -95,14 +96,20 @@ class Quadratic:
         return q.roots()
 
 
-q = Quadratic(1.0, -7.0, 4.0)
+# q = Quadratic(1.0, -7.0, 4.0)
+# roots = q.roots()
+# sortedRoots = sorted(roots)  # sort output for consistency
+# print("Number of roots: {0}\n"
+#       "Root type is {1}\n"
+#       "Roots are ({2:.3f}, {3:.3f})".format(
+#     q.numberOfRoots(),
+#     type(roots),
+#     sortedRoots[0],
+#     sortedRoots[1])
+# )
+q = Quadratic(1.0, -4.0, 4.0)
 roots = q.roots()
-sortedRoots = sorted(roots)  # sort output for consistency
 print("Number of roots: {0}\n"
       "Root type is {1}\n"
-      "Roots are ({2:.3f}, {3:.3f})".format(
-    q.numberOfRoots(),
-    type(roots),
-    sortedRoots[0],
-    sortedRoots[1])
+      "Root is {2:.3f}".format(q.numberOfRoots(), type(roots), roots)
 )
