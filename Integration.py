@@ -1,4 +1,5 @@
 import math
+import numpy
 
 
 class Integration:
@@ -75,16 +76,20 @@ class Integration:
             )
 
         my_function = self.functionToBeIntegrated
-        test_result = self.integrationMethod(a, b, 10, my_function)
         i = 1
-        similar_enough = True
+        similar_enough = False
 
-        # while similar_enough:
-        #     compare_to = self.integrationMethod(a, b, i * 100, my_function)
-        #     i += 1
-        print(round(0.3186358, 5))
+        while not similar_enough:
+            print(i)
+            y_1 = self.integrationMethod(a, b, i * 100 * i, my_function)
+            y_2 = self.integrationMethod(a, b, i * 100 * (i + 1), my_function)
 
-        result = float('nan')
+            i += 1
+
+            if math.isclose(y_1, y_2, rel_tol=self.eps):
+                similar_enough = True
+
+        result = y_2
         return result
 
     @staticmethod
@@ -144,7 +149,21 @@ def straight_line(x):
     return m * x + c
 
 
-myIntegral = Integration(straight_line)
-print(myIntegral.evaluate(0, 1))
+from scipy.integrate import quad
 
 
+def test_function(x):
+    return math.exp(-x) * x ** 5
+
+
+myIntegral = Integration(test_function)
+a = 0  # lower bound
+b = 1  # upper bound
+
+print(myIntegral.evaluate(a, b))
+
+myIntegral.setEPS(1e-8)
+print(myIntegral.evaluate(a, b))
+
+myIntegral.setMethod(2)
+print(myIntegral.evaluate(a, b))
