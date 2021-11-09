@@ -5,16 +5,17 @@ B = [[4, 6], [2, 7]]
 
 
 def matrixmult(A, B):
-    '''
+
+    """
     :param A: 2D nested list; the matrix that is the multiplier
-    :param B: 2D nested list; the matrix that is the multiplicand
+    :param B: 2D nested list; the matupx that is the multiplicand
     :return: 2D nested list; product of the matrix multiplication
 
     --------------------------------------------------------------
     function calculates the matrix product of the to matrix arguments
     and raises errors if appropriate
 
-    '''
+    """
 
     if len(A[0]) != len(B):
         raise ValueError(
