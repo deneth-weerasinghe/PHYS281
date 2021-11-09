@@ -80,13 +80,12 @@ class Integration:
         similar_enough = False
 
         while not similar_enough:
-            print(i)
-            y_1 = self.integrationMethod(a, b, i * 100 * i, my_function)
-            y_2 = self.integrationMethod(a, b, i * 100 * (i + 1), my_function)
+            y_1 = self.integrationMethod(a, b, 100000 * 2 ** i, my_function)
+            y_2 = self.integrationMethod(a, b, 100000 * 2 ** (i + 1), my_function)
 
             i += 1
 
-            if math.isclose(y_1, y_2, rel_tol=self.eps):
+            if math.isclose(y_1, y_2, abs_tol=self.eps):
                 similar_enough = True
 
         result = y_2
@@ -144,26 +143,43 @@ class Integration:
 
 
 def straight_line(x):
-    m = 2.0
-    c = 2.0
+    m = 2.0  # gradient
+    c = 2.0  # y-intercept
     return m * x + c
 
-
-from scipy.integrate import quad
-
+def quadratic(x):
+    a = 2.2
+    b = -3.5
+    c = 6.7
+    return a * x ** 2 + b * x + c
 
 def test_function(x):
     return math.exp(-x) * x ** 5
 
+def triangle(x):
+    if x >= 0 and x <= 2:
+        if x <= 1:
+            return x
+        else:
+            return 2.0 - x
+    else:
+        return 0.0
 
-myIntegral = Integration(test_function)
-a = 0  # lower bound
-b = 1  # upper bound
+functions = [straight_line, quadratic, test_function, triangle]
+ranges = [[0.0, 1.0], [-10.0, 10.0], [1.0, 3.0], [-3.0, 4.0]]
+analytical_answers = [3.0, 1600.6666666666666, 9.998850865646610741752695, 1.0]
 
-print(myIntegral.evaluate(a, b))
+wrong_precision = False
+for i, func in enumerate(functions):
+    myIntegral = Integration(func, method=3)
+    for eps in [1e-1, 1e-2, 1e-3]:
+        myIntegral.setEPS(eps)
+        result = myIntegral.evaluate(ranges[i][0], ranges[i][1])
+        if math.fabs(result - analytical_answers[i]) > eps:
+            wrong_precision = True
+            break
+    if wrong_precision:
+        break
 
-myIntegral.setEPS(1e-8)
-print(myIntegral.evaluate(a, b))
-
-myIntegral.setMethod(2)
-print(myIntegral.evaluate(a, b))
+if not wrong_precision:
+    print("Integrals are evaluated to the correct precision using the mid-point rectangle rule")
