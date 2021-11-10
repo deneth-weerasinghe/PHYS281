@@ -147,14 +147,17 @@ def straight_line(x):
     c = 2.0  # y-intercept
     return m * x + c
 
+
 def quadratic(x):
     a = 2.2
     b = -3.5
     c = 6.7
     return a * x ** 2 + b * x + c
 
+
 def test_function(x):
     return math.exp(-x) * x ** 5
+
 
 def triangle(x):
     if x >= 0 and x <= 2:
@@ -164,6 +167,7 @@ def triangle(x):
             return 2.0 - x
     else:
         return 0.0
+
 
 functions = [straight_line, quadratic, test_function, triangle]
 ranges = [[0.0, 1.0], [-10.0, 10.0], [1.0, 3.0], [-3.0, 4.0]]
